@@ -1,1 +1,1 @@
-require '../p1'
+require 'p1'
