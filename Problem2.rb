@@ -3,20 +3,21 @@
 # 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...
 # By considering the terms in the Fibonacci sequence whose values 
 # do not exceed four million, find the sum of the even-valued terms.
-seq = [2,1]
 
-# performs one extra calc before deleting it, icky
-until (seq.first.to_i > 4000000)
-  first = seq.first.to_i
-  second = seq[1].to_i
-  sum = first + second
-  seq.unshift(sum)
-  puts seq.to_s
-end
+class Problem2
   
-seq.delete_at(0)
-seq.delete_if {|i| i % 2 != 0}
-puts seq.to_s
-puts seq.inject(0){|sum,item| sum + item}
-
-
+  def initialize
+    @seq = [2,1]
+  end
+  
+  def sum_even_value_fibonacci_up_to n
+    until @seq.first > n
+      sum = @seq.first + @seq[1]
+      @seq.unshift sum
+    end
+    @seq.delete_at 0
+    @seq.delete_if { |i| i % 2 != 0 }
+    @seq.inject(0) { | sum, item | sum + item }
+  end
+  
+end
