@@ -30,7 +30,7 @@ while bn.length >= 5
   sum_slice = 0
   next_slice.split("").each { |n| sum_slice += n.to_i}
   
-  if sum_slice > max_sum then
+  if sum_slice > max_sum
     max_sum = sum_slice
     max_slice = next_slice
   end
@@ -38,5 +38,7 @@ while bn.length >= 5
   bn.slice!(0)
   
 end
+
+
 
 puts "The max slice is #{max_slice} with a sum of #{max_sum}"
