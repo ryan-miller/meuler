@@ -1,4 +1,4 @@
-require_relative '../p1'
+require_relative '../Problem1'
 
 describe Problem1 do
 
