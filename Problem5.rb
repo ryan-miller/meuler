@@ -3,30 +3,27 @@
 # What is the smallest positive number that is evenly divisible 
 # by all of the numbers from 1 to 20?
 
-found = false
-num = 1
+class Problem5
 
-start_time = Time.now
-
-while !found
-  
-  if (num % 11 == 0 &&
-      num % 12 == 0 &&
-      num % 13 == 0 &&
-      num % 14 == 0 &&
-      num % 15 == 0 &&
-      num % 16 == 0 &&
-      num % 17 == 0 &&
-      num % 18 == 0 &&
-      num % 19 == 0 &&
-      num % 20 == 0) then
-      puts num
-      break;
+  # greatest common divisor
+  def gcd(a, b)
+    if a == 0 || b == 0
+      return a + b
+    end
+    gcd(b, (a % b))
   end
-  
-  num += 1
+
+  # least common multiple
+  def lcm(a, b)
+    ( (a * b) / gcd(a, b) )
+  end
+
+  # lcm(a, b, c) = lcm(a, lcm(b, c))
+  def lcmm(max, a)
+    if a == max - 1
+      return lcm(a, max)
+    end
+    lcm(a, lcmm(max, a+1))
+  end
 
 end
-
-end_time = Time.now
-puts (end_time - start_time) * 1000.0
