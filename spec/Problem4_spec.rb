@@ -20,5 +20,6 @@ describe Problem4 do
     @p4.largest_palindrome(999).should eql 906609
   end
   
+  # test the other public methods
 
 end
