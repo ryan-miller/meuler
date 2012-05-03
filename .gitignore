@@ -1,2 +1,4 @@
 *.tmproj
 .idea/*.*
+.idea
+.gitignore
