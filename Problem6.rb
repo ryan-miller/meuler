@@ -8,33 +8,22 @@
 # Find the difference between the sum of the squares of the 
 # first one hundred natural numbers and the square of the sum.
 
-def sum_squares(r)
+class Problem6
 
-  result = 0
-  
-  r.each { |n| result += n**2 }
-  
-  puts "sum of squares: #{result}"
-  result
-  
+  def sum_squares(r)
+    result = 0
+    r.each { |n| result += n**2 }
+    result
+  end
+
+  def square_sum(r)
+    result = 0
+    r.each { |n| result += n }
+    result**2
+  end
+
+  def solve_for r
+    square_sum(r) - sum_squares(r)
+  end
+
 end
-
-def square_sum(r)
-  
-  result = 0
-  
-  r.each { |n| result += n }
-  
-  puts "squares sum: #{result**2}"
-  result**2
-  
-end
-
-range = (1..100)
-
-start_time = Time.now
-
-puts square_sum(range) - sum_squares(range)
-
-end_time = Time.now
-puts (end_time - start_time) * 1000.0

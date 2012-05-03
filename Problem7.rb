@@ -5,20 +5,20 @@
 
 require 'mathn'
 
-def nth_prime(nth)
+class Problem7
 
-  primes = []
-  num = 1
+  def nth_prime nth
+    primes = []
+    num = 1
 
-  while primes.length < nth
-    primes.unshift(num) unless !num.prime?
-    num += 1
+    while primes.length < nth
+      primes.unshift(num) unless !num.prime?
+      num += 1
+    end
+
+    num
+
   end
-  
-  return num
 
 end
-
-puts "The 10,001st prime number is #{nth_prime(10001)}"
-#puts "The 10,001st prime number is #{Prime.first(10001).last}"
 
