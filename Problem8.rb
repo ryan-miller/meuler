@@ -5,18 +5,20 @@ class Problem8
   end
   
   def greatest_product size
-    
-    max_product = 0
-    max_slice = ""
-    
+    # start with the first slice
+    max_slice = @bn.slice(0...size)
+    max_product = find_product(max_slice)
+      
     while @bn.length >= size
       next_slice = @bn.slice(0...size)
-
-      product_slice = 1
-      next_slice.split("").each {|n| product_slice *= n.to_i}
-      if product_slice > max_product
-        max_product = product_slice
-        max_slice = next_slice
+      
+      # if next_slice contains "0" we can skip as result will be 0
+      if !next_slice.to_s.include?("0") then
+        product_slice = find_product(next_slice)
+        if product_slice > max_product
+          max_product = product_slice
+          max_slice = next_slice
+        end
       end
       
       @bn.slice!(0)
@@ -24,6 +26,14 @@ class Problem8
     end
     
     [max_product, max_slice]
+  end
+  
+  private
+  
+  def find_product range
+    product = 1
+    range.split("").each {|n| product *= n.to_i}
+    product
   end
 
 end
