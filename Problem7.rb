@@ -16,7 +16,7 @@ class Problem7
       num += 1
     end
 
-    num
+    primes.first
 
   end
 
