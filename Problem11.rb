@@ -21,6 +21,7 @@ In the 2020 grid below, four numbers along a diagonal line have been marked in r
 20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48
+
 The product of these numbers is 26  63  78  14 = 1788696.
 
 What is the greatest product of four adjacent numbers in any direction (up, down, left, right, or diagonally) in the 2020 grid?
@@ -32,86 +33,92 @@ class Problem11
     @max_product = 1
     @max_slice = []
     @max_product_from = ""
-    @matrix = range_to_matrix r
+    @m = range_to_matrix r
   end
 
   def greatest_adjacent_product
-    puts @matrix.to_s
-    max_row_product = find_max_row_product
-    max_column_product = find_max_column_product
-    #max_left_diag_product
-    #max_right_diag_product
-    
-    puts "max product: #{@max_product} \t from: #{@max_slice} \t via #{@max_product_from}"
-    
+    look_by_row
+    look_by_column
+    look_left_diagonally
+    look_right_diagonally
+    #puts "max product: #{@max_product} \t from: #{@max_slice} \t via #{@max_product_from}"
+    @max_product
   end
   
   private
+  
+  def look_right_diagonally
+    (3..19).each { |c|
+      (0..16).each { |r|
+        check_max("RIGHT_DIAG", [@m[r][c], 
+                                 @m[r+1][c-1], 
+                                 @m[r+2][c-2], 
+                                 @m[r+3][c-3]])
+      }
+    }
+  end
+  
+  def look_left_diagonally
+    (0..16).each { |c|
+      (0..16).each { |r|
+        check_max("LEFT_DIAG", [@m[r][c],
+                                @m[r+1][c+1],
+                                @m[r+2][c+2],
+                                @m[r+3][c+3]])
+      }
+    }
+  end
+  
+  def look_by_column
+    (0..19).each { |c| 
+      (0..16).each { |r| 
+        check_max("COLUMN", [@m[r][c],
+                             @m[r+1][c],
+                             @m[r+2][c],
+                             @m[r+3][c]])
+      }
+    }
+  end
+  
+  def look_by_row
+    (0..19).each { |r| 
+      (0..16).each { |c|
+        check_max("ROW", [@m[r][c],
+                          @m[r][c+1],
+                          @m[r][c+2],
+                          @m[r][c+3]])
+      }
+    }
+  end
+  
+  def check_max t, a
+    p = 1
+    a.each { |i| p = p * i }
+    set_max p, a.to_s, t unless p < @max_product
+  end
   
   def set_max p, s, t
     @max_product = p
     @max_slice = s
     @max_product_from = t
   end
-  
-  def find_max_column_product
-    
-    0.upto(19).each { |c| 
 
-      (0...17).each { |r| 
-        a = Array.new
-        a.push(@matrix[r][c])
-        a.push(@matrix[r+1][c])
-        a.push(@matrix[r+2][c])
-        a.push(@matrix[r+3][c])
-        
-        p = 1
-        a.each {|i| p = p * i}
-        
-        if p > @max_product
-          set_max p, a.to_s, "COLUMN"
-        end 
-      }
-    }
-    
-  end
-  
-  def find_max_row_product
-
-    @matrix.each {|r| 
-      (0...17).each {|s|
-        p = 1
-        r.slice(s,4).each {|i|
-          p = p * i
-        }        
-        if p > @max_product
-          set_max p, r.slice(s,4).to_s, "ROW"
-        end
-      }
-    }
-  
-    @max_product
-    
-  end
-  
   def range_to_matrix r
-    a = Array.new
-    matrix = Array.new
-    row = Array.new
+    a = []
+    matrix = []
+    row = []
     
-    r.split(" ").each {|s| a.push(s.to_i)}
+    r.split(" ").each { |s| a.push(s.to_i) }
   
     a.each { |i| 
-      
       if (row.size == 20) then
         matrix.push(row)
-        row = Array.new
+        row = []
       end
       row.push(i)
     }
    
     matrix.push(row)
-    
   end
 
 end

@@ -37,6 +37,7 @@ describe Problem11 do
   end
   
   it "finds the largest product of 4 adjacent numbers as 2" do
-    @p11.greatest_adjacent_product.should eql 12
+    @p11.greatest_adjacent_product.should eql 70600674
   end
+  
 end
