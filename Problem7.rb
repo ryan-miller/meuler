@@ -8,16 +8,7 @@ require 'mathn'
 class Problem7
 
   def nth_prime nth
-    primes = []
-    num = 1
-
-    while primes.length < nth
-      primes.unshift(num) unless !num.prime?
-      num += 1
-    end
-
-    primes.first
-
+    Prime.take(nth).last
   end
 
 end
